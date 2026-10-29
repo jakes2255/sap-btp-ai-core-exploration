@@ -1,0 +1,423 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b1020">
+  <title>AI Pulse | Live AI Intelligence</title>
+
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #121a2e;
+      --border: #27334d;
+      --text: #edf2ff;
+      --muted: #9ba9c5;
+      --accent: #a78bfa;
+      --green: #5ee0b5;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(1120px, 92%);
+      margin: auto;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 22px 0;
+    }
+
+    .nav, .brand, .meta, .search {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav { justify-content: space-between; }
+
+    .logo {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #8b5cf6, #22d3ee);
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    h1, h2, p { margin-top: 0; }
+
+    .brand h1 { margin: 0; font-size: 22px; }
+    .muted, .subtitle { color: var(--muted); }
+    .muted { font-size: 13px; }
+
+    .live {
+      color: var(--green);
+      border: 1px solid #276d5d;
+      background: #102b2a;
+      border-radius: 20px;
+      padding: 5px 11px;
+      font-size: 12px;
+    }
+
+    .hero { padding: 48px 0 28px; }
+
+    .eyebrow {
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .hero h2 {
+      font-size: clamp(30px, 5vw, 48px);
+      line-height: 1.15;
+      margin: 12px 0;
+      max-width: 700px;
+    }
+
+    .hero p { max-width: 650px; color: var(--muted); }
+
+    .search {
+      margin: 28px 0 12px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 7px;
+    }
+
+    input {
+      flex: 1;
+      min-width: 0;
+      padding: 12px;
+      border: 0;
+      outline: none;
+      background: transparent;
+      color: var(--text);
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      border: 0;
+      border-radius: 8px;
+      padding: 12px 20px;
+      background: var(--accent);
+      color: #17112b;
+      font-weight: 750;
+      font: inherit;
+    }
+
+    button:disabled { opacity: .6; cursor: wait; }
+
+    .topics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 14px 0 34px;
+    }
+
+    .topic {
+      color: #c7d2fe;
+      background: #171e35;
+      border: 1px solid var(--border);
+      padding: 7px 12px;
+      border-radius: 22px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .section-head h2 { margin: 0; font-size: 22px; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      padding: 22px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      display: flex;
+      flex-direction: column;
+      min-height: 220px;
+      transition: border-color .2s, transform .2s;
+    }
+
+    .card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .tag {
+      align-self: flex-start;
+      font-size: 11px;
+      color: var(--accent);
+      background: #252044;
+      padding: 4px 9px;
+      border-radius: 6px;
+      margin-bottom: 14px;
+    }
+
+    .card h3 {
+      font-size: 17px;
+      line-height: 1.5;
+      margin: 0 0 18px;
+    }
+
+    .card h3 a:hover { color: var(--accent); }
+
+    .meta {
+      flex-wrap: wrap;
+      gap: 8px 14px;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: auto;
+    }
+
+    .message {
+      padding: 28px;
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      color: var(--muted);
+      text-align: center;
+      grid-column: 1 / -1;
+    }
+
+    .footer {
+      margin-top: 60px;
+      padding: 24px 0;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer a { color: var(--accent); }
+
+    @media (max-width: 650px) {
+      .grid { grid-template-columns: 1fr; }
+      .hero { padding-top: 32px; }
+      .live { font-size: 10px; }
+      .card { min-height: 190px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="/" aria-label="AI Pulse home">
+        <div class="logo">AI</div>
+        <div>
+          <h1>AI Pulse</h1>
+          <div class="muted">Technology intelligence</div>
+        </div>
+      </a>
+      <span class="live">● LIVE NEWS</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="eyebrow">Your AI industry radar</div>
+      <h2>Stay ahead of the next wave of AI.</h2>
+      <p>
+        Explore the latest discussions, launches, research, and trends
+        across artificial intelligence and the developer ecosystem.
+      </p>
+
+      <form class="search" id="search-form">
+        <input id="query"
+               aria-label="Search AI news"
+               placeholder="Search OpenAI, LLMs, AI agents..."
+               value="artificial intelligence"
+               maxlength="120">
+        <button id="search-button" type="submit">Search ↗</button>
+      </form>
+
+      <div class="topics" aria-label="Popular topics">
+        <button class="topic" data-query="OpenAI">OpenAI</button>
+        <button class="topic" data-query="Google Gemini">Gemini</button>
+        <button class="topic" data-query="AI agents">AI agents</button>
+        <button class="topic" data-query="large language models">LLMs</button>
+        <button class="topic" data-query="machine learning">Machine learning</button>
+        <button class="topic" data-query="generative AI">Generative AI</button>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Latest stories</h2>
+        <span class="muted" id="result-count">Connecting...</span>
+      </div>
+      <div class="grid" id="news-grid" aria-live="polite">
+        <div class="message">Fetching the latest AI stories...</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container footer">
+    <span>AI Pulse · Built with Python, Flask & REST APIs</span>
+    <span>
+      Data:
+      <a href="https://news.ycombinator.com/" target="_blank"
+         rel="noopener noreferrer">Hacker News</a>
+      · Search powered by
+      <a href="https://hn.algolia.com/" target="_blank"
+         rel="noopener noreferrer">Algolia</a>
+    </span>
+  </footer>
+
+  <script>
+    const grid = document.getElementById("news-grid");
+    const queryInput = document.getElementById("query");
+    const count = document.getElementById("result-count");
+    const searchButton = document.getElementById("search-button");
+    const form = document.getElementById("search-form");
+
+    function escapeHTML(value) {
+      return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[char]);
+    }
+
+    function timeAgo(value) {
+      if (!value) return "Time unavailable";
+
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return "Time unavailable";
+
+      const minutes = Math.max(0, Math.floor(
+        (Date.now() - date.getTime()) / 60000
+      ));
+
+      if (minutes < 1) return "Just now";
+      if (minutes < 60) return `${minutes}m ago`;
+      if (minutes < 1440) return `${Math.floor(minutes / 60)}h ago`;
+      if (minutes < 43200) return `${Math.floor(minutes / 1440)}d ago`;
+
+      return date.toLocaleDateString();
+    }
+
+    async function loadNews(searchTerm = queryInput.value) {
+      const term = searchTerm.trim();
+
+      if (!term) {
+        grid.innerHTML =
+          '<div class="message">Enter a topic to search.</div>';
+        count.textContent = "No query";
+        return;
+      }
+
+      queryInput.value = term;
+      searchButton.disabled = true;
+      searchButton.textContent = "Loading...";
+      count.textContent = "Fetching stories...";
+      grid.innerHTML =
+        '<div class="message">Connecting to the live news API...</div>';
+
+      try {
+        const response = await fetch(
+          `/api/news?q=${encodeURIComponent(term)}&limit=20`
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || "Unable to load news.");
+        }
+
+        count.textContent = `${data.count} stories · Updated ${
+          new Date(data.fetched_at).toLocaleTimeString()
+        }`;
+
+        if (!data.articles.length) {
+          grid.innerHTML =
+            '<div class="message">No stories found. Try another keyword.</div>';
+          return;
+        }
+
+        grid.innerHTML = data.articles.map(article => {
+          const safeTitle = escapeHTML(article.title);
+          const safeUrl = escapeHTML(article.url);
+          const safeAuthor = escapeHTML(article.author);
+
+          return `
+            <article class="card">
+              <span class="tag">AI & TECHNOLOGY</span>
+              <h3>
+                <a href="${safeUrl}" target="_blank"
+                   rel="noopener noreferrer">${safeTitle}</a>
+              </h3>
+              <div class="meta">
+                <span>◷ ${timeAgo(article.published_at)}</span>
+                <span>↑ ${article.points} points</span>
+                <span>💬 ${article.comments} comments</span>
+                <span>By ${safeAuthor}</span>
+              </div>
+            </article>
+          `;
+        }).join("");
+
+      } catch (error) {
+        grid.innerHTML = `
+          <div class="message">
+            ${escapeHTML(error.message)}
+            <br><br>
+            Check your connection and try again.
+          </div>`;
+        count.textContent = "Unable to load";
+      } finally {
+        searchButton.disabled = false;
+        searchButton.textContent = "Search ↗";
+      }
+    }
+
+    form.addEventListener("submit", event => {
+      event.preventDefault();
+      loadNews();
+    });
+
+    document.querySelectorAll(".topic").forEach(button => {
+      button.addEventListener("click", () => {
+        loadNews(button.dataset.query);
+      });
+    });
+
+    loadNews();
+  </script>
+</body>
+</html>
